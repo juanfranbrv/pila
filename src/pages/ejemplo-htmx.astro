@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import { Picture } from "astro:assets";
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+
+
+
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Ejemplo HTMX">
+    <h1>Ejemplo básico de HTMX en Astro2</h1>
+
+<!-- Al hacer clic, htmx realizará una petición GET al archivo estático fragment.html -->
+  <button 
+    hx-get="/fragment.html"
+    hx-target="#resultado"
+    hx-swap="innerHTML"
+    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+  >
+    Probar htmx
+  </button>
+
+  <!-- Aquí se inyectará el contenido obtenido -->
+  <div id="resultado"></div>
+</Layout>
