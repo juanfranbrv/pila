@@ -1,0 +1,40 @@
+---
+// Importa tu layout
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Consulta al LLM (HTMX + FastAPI)">
+  <h1>Consulta al LLM</h1>
+  
+  <!-- Formulario que envía la pregunta usando HTMX -->
+  <form 
+    hx-get="https://backend-five-eta-74.vercel.app/ask" 
+    hx-target="#respuesta-llm" 
+    hx-swap="innerHTML"
+    class="space-y-4"
+  >
+    <div>
+      <label for="pregunta" class="block font-bold">Pregunta:</label>
+      <input 
+        type="text" 
+        id="pregunta" 
+        name="pregunta" 
+        placeholder="Escribe tu pregunta..." 
+        class="border rounded p-2 w-full" 
+        required
+      />
+    </div>
+    
+    <button 
+      type="submit" 
+      class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+    >
+      Preguntar
+    </button>
+  </form>
+  
+  <!-- Div donde se inyectará la respuesta del backend -->
+  <div id="respuesta-llm" class="mt-6">
+    <!-- La respuesta se mostrará aquí -->
+  </div>
+</Layout>
