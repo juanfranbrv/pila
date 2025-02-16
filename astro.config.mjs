@@ -8,6 +8,5 @@ import htmx from 'astro-htmx';
 // https://astro.build/config
 export default defineConfig({
   site: "https://astroship.web3templates.com",
-  integrations: [tailwind(), mdx(), sitemap(), icon(), htmx()],
-  output: 'server'
+  integrations: [tailwind(), mdx(), sitemap(), icon(), htmx()]
 });
