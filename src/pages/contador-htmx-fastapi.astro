@@ -1,28 +1,21 @@
 ---
-// src/pages/contador-htmx-fastapi.astro (o test-htmx-minimal.astro)
+
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Contador HTMX + FastAPI (ahora con fetch)">
     <h1>Contador Dinámico con FastAPI (Ahora con Fetch)</h1>
 
-    <div id="contador-display-astro-fetch">
-        <p>Contador: <b>0</b> (Inicial - Fetch)</p> {/* Div para la respuesta con fetch */}
-    </div>
+
 
     <div id="contador-display-astro">
         <p>Contador: <b>0</b> (Inicial - Fetch)</p> {/* Div para la respuesta con fetch */}
     </div>
 
-    <button
-        id="incrementarBtnFetch"  // Añadimos un ID al botón para seleccionarlo con JavaScript
-        class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-    >
-        Incrementar Contador (Backend FastAPI - Fetch)
-    </button>
+
 
        <button
-        hx-post="http://127.0.0.1:8000/incrementar"
+        hx-post="https://backend-five-eta-74.vercel.app/incrementar"
         hx-target="#contador-display-astro"  
         hx-swap="innerHTML"              
         class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors" 
@@ -30,48 +23,5 @@ import Layout from '../layouts/Layout.astro';
         Incrementar Contador (Backend FastAPI - htmx)
     </button>
 
-    <!-- Ya no necesitamos el div #resultado de HTMX para este botón -->
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const incrementarBtnFetch = document.getElementById('incrementarBtnFetch');
-            const contadorDisplayFetch = document.getElementById('contador-display-astro-fetch');
-
-            incrementarBtnFetch.addEventListener('click', async () => {
-                try {
-                    const response = await fetch('http://127.0.0.1:8000/incrementar', {
-                        method: 'POST', // Usamos POST para el endpoint /incrementar
-                        headers: {
-                            'Content-Type': 'application/json' // Indica que enviamos JSON (aunque en este caso no enviamos cuerpo, es buena práctica)
-                        },
-                        // body: JSON.stringify({}) // Si necesitaras enviar datos en el cuerpo, irían aquí
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`Error en la petición HTTP: ${response.status}`);
-                    }
-
-                    const data = await response.text(); // Esperamos una respuesta de texto (HTML en este caso, como en tu backend FastAPI)
-                    contadorDisplayFetch.innerHTML = data; // Insertamos el HTML recibido en el div
-                } catch (error) {
-                    console.error("Error al incrementar el contador con Fetch:", error);
-                    contadorDisplayFetch.textContent = "Error al actualizar el contador. Consulta la consola."; // Muestra un mensaje de error en la UI
-                }
-            });
-        });
-    </script>
-
-
-    <!-- Al hacer clic, htmx realizará una petición GET al archivo estático fragment.html -->
-  <button 
-    hx-get="/fragment.html"
-    hx-target="#resultado"
-    hx-swap="innerHTML"
-    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-  >
-    Probar htmx
-  </button>
-
-  <!-- Aquí se inyectará el contenido obtenido -->
-  <div id="resultado"></div>
+ 
 </Layout>
